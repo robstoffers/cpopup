@@ -1,0 +1,10 @@
+{
+  "name": "cpopup",
+  "type":"module",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --format=esm --outfile=dist/cpopup.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.15.5"
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="module" src="./index.js"></script>
+
+        <style>
+            html, body {
+                height: 100%;
+                overflow: hidden;
+            }
+
+            /* This is required in app code because by the time the custom element is registered the c-popup element
+            is already in the DOM so you would see the popup content flash onscreen for a second before it would disappear. I
+            don't know how to fix this and it is low priority since you can easily keep it hidden by including the CSS directly
+            like this. It has no ill effects when displaying the popup. */
+            c-popup {
+                visibility: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <c-popup id="popup" background="white" shadow-blur="8" corner-radius="5">
+            <div style="width: 200px; height: 50px;">
+                <span style="line-height: 50px; display: table; margin: 0 auto;">Hello World!</span>
+            </div>
+        </c-popup>
+
+        <button id="btn" onclick="toggle(this)" style="position: absolute; left: 10px; top: 200px;">Show Popup</button>
+
+        <script>
+            function toggle(btn) {
+                let popup = document.getElementById("popup");
+                if (!popup.isOpen) {
+                    popup.show(btn, "auto");
+                } else {
+                    popup.hide();
+                }
+            }
+
+            const resizeObserver = new ResizeObserver((entries) => {
+                let btn = document.getElementById("btn");
+                for (const entry of entries) {
+                    let popup = document.getElementById("popup");
+                    if (popup.isOpen) {
+                        popup.move(btn, "auto");
+                    }
+                }
+
+                console.log('Size changed');
+            });
+
+            resizeObserver.observe(document.body);
+        </script>
+    </body>
+</html>
