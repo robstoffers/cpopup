@@ -69,6 +69,16 @@ export function fromSpinal(value: string): string {
     return ret;
 }
 
+export function ensureBool(v: any): boolean {
+    if (v == null) {
+        return false;
+    }
+    if (typeof v == "boolean") {
+        return v;
+    }
+    return v.toString().toLowerCase() == "true";
+}
+
 export function lerp (start: number, end: number, amt: number): number {
     return (1-amt)*start+amt*end
 }

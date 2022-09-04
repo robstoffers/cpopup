@@ -97,6 +97,13 @@ export class CPopup {
     set animationOffset(n: number) { this._animationOffset = n; }
     get animationOffset(): any { return this._animationOffset; }
 
+    private _autoDismiss: boolean = false;
+    set autoDismiss(b: boolean) { this._autoDismiss = b; }
+    get autoDismiss(): boolean { return this._autoDismiss; }
+
+    public open: (p: any) => void;
+    public close: (p: any) => void;
+
     private _isOpen: boolean = false;
     get isOpen(): boolean { return this._isOpen; }
 
@@ -126,8 +133,6 @@ export class CPopup {
      */
     public show(target: any, position: PopupPositions) {
         if (!this.isOpen) {
-            this._isOpen = true;
-
             // todo: Reset animation settings.
             (<any>this._start) = undefined;
             this._opacity = 0;
@@ -154,6 +159,12 @@ export class CPopup {
             // todo: Show the popup.
             this._view.show(desiredPosition.ax, desiredPosition.ay, desiredPosition.ap);
 
+            this._isOpen = true;
+
+            if (this.open) {
+                this.open(this);
+            }
+
             // todo: Start any animations.
             this.executionContext(this.animate);
         }
@@ -164,8 +175,6 @@ export class CPopup {
      */
     public showAt(x: number, y: number, horizontal: HorizontalStrategy = "left", vertical: VerticalStrategy = "top") {
         if (!this.isOpen) {
-            this._isOpen = true;
-
             // todo: Reset animation settings.
             (<any>this._start) = undefined;
             this._opacity = 0;
@@ -200,6 +209,12 @@ export class CPopup {
             // todo: Show the popup.
             this._view.show(0, 0, "none");
 
+            this._isOpen = true;
+
+            if (this.open) {
+                this.open(this);
+            }
+
             // todo: Start any animations.
             this.executionContext(this.animate);
         }
@@ -209,6 +224,10 @@ export class CPopup {
         if (this.isOpen) {
             this._view.hide();
             this._isOpen = false;
+
+            if (this.close) {
+                this.close(this);
+            }
         }
     }
 

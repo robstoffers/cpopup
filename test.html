@@ -19,7 +19,7 @@
         </style>
     </head>
     <body>
-        <c-popup id="popup" background="white" shadow-blur="8" corner-radius="5">
+        <c-popup id="popup" auto-dismiss="true" background-color="white" shadow-blur="8" corner-radius="5">
             <div style="width: 200px; height: 50px;">
                 <span style="line-height: 50px; display: table; margin: 0 auto;">Hello World!</span>
             </div>
@@ -28,6 +28,13 @@
         <button id="btn" onclick="toggle(this)" style="position: absolute; left: 10px; top: 200px;">Show Popup</button>
 
         <script>
+            setTimeout(() => {
+                let p =  document.getElementById("popup");
+                p.open = onPopupOpen;
+                p.close = onPopupClose;
+            });
+            
+
             function toggle(btn) {
                 let popup = document.getElementById("popup");
                 if (!popup.isOpen) {
@@ -35,6 +42,14 @@
                 } else {
                     popup.hide();
                 }
+            }
+
+            function onPopupOpen(popup) {
+                console.log("open");
+            }
+
+            function onPopupClose(popup) {
+                console.log("close");
             }
 
             const resizeObserver = new ResizeObserver((entries) => {

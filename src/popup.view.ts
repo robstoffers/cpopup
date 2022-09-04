@@ -13,6 +13,8 @@ export class CPopupView {
 
     constructor(model: CPopup) {
         this._model = model;
+
+        this.onDocumentClick = this.onDocumentClick.bind(this);
     }
 
     public provideContainer(container: any): void {
@@ -75,6 +77,10 @@ export class CPopupView {
 
         document.body.append(this._root);
 
+        setTimeout(() => {
+            document.body.addEventListener("click", this.onDocumentClick);
+        });
+        
         // configure the dom elements.
         this._root.style.width = this._model.contentSize.width + "px";
         this._root.style.height = this._model.contentSize.height + "px";
@@ -85,6 +91,7 @@ export class CPopupView {
 
     public hide(): void {
         this._root.remove();
+        document.body.removeEventListener("click", this.onDocumentClick);
     }
 
     public updateCanvas(r: Rect): void {
@@ -245,6 +252,12 @@ export class CPopupView {
             this._ctx.strokeStyle = this._model.borderColor;;
             this._ctx.stroke();
             this._ctx.restore();
+        }
+    }
+
+    private onDocumentClick(e: PointerEvent) {
+        if (this._model.autoDismiss && e.srcElement && !this._root.contains(e.srcElement as Node)) {
+            this._model.hide();
         }
     }
 }
