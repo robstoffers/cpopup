@@ -106,18 +106,49 @@ export class CPopupComponent extends HTMLElement {
         this[name] = newValue;
     }
 
+    /**
+     * Shows the popup attached to a specific target.
+     * @param target The target to attach the popup to.
+     * @param position How the popup should be positioned around the target.
+     */
     public show(target: HTMLElement, position: PopupPositions): void {
         this._implementation.show(target, position);
     }
+
+    /**
+     * Shows the popup at a specific location.
+     * @param x The x location.
+     * @param y The y location.
+     * @param horizontal How the popup is displayed relative to the x location.
+     * @param vertical How the popup is displayed relative to the y location.
+     */
     public showAt(x: number, y: number, horizontal: HorizontalStrategy = "left", vertical: VerticalStrategy = "top"): void {
         this._implementation.showAt(x, y, horizontal, vertical);
     }
+
+    /**
+     * Notifies the popup that it needs to move.
+     * @param target The target to attach the popup to.
+     * @param position How the popup should be positioned around the target.
+     */
     public move(target: HTMLElement, position: PopupPositions): void {
         this._implementation.move(target, position);
     }
+
+    /**
+     * Notifies the popup that it needs to move.
+     * @param x The x location to move to.
+     * @param y The y location to move to.
+     * @param horizontal How the popup is displayed relative to the x location.
+     * @param vertical How the popup is displayed relative to the y location.
+     */
     public moveTo(x: number, y: number, horizontal: HorizontalStrategy = "left", vertical: VerticalStrategy = "top") {
         this._implementation.moveTo(x, y, horizontal, vertical);
     }
+    
+    /**
+     * Close the popup.
+     */
     public hide(): void {
         this._implementation.hide();
     }
