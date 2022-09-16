@@ -4,11 +4,15 @@
   "keywords": ["popup", "canvas"],
   "version": "1.0.0",
   "type":"module",
+  "main": "cpopup.js",
   "homepage": "https://github.com/robstoffers/cpopup",
-  "license": "MIT",
+  "license": "ISC",
+  "files": [
+    "cpopup.js"
+  ],
   "scripts": {
-    "build:dev": "esbuild src/index.ts --bundle --format=esm --outfile=dist/cpopup.js",
-    "build:prod": "esbuild src/index.ts --bundle --minify --format=esm --outfile=dist/cpopup.js"
+    "build": "esbuild src/index.ts --bundle --format=esm --outfile=cpopup.js",
+    "build:prod": "esbuild src/index.ts --bundle --minify --format=esm --outfile=cpopup.js"
   },
   "devDependencies": {
     "esbuild": "^0.15.5"
