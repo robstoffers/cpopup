@@ -22,6 +22,14 @@ export class CPopupView {
             // cleanup.
             this._container = null;
         }
+
+        if (!container) {
+            if (this._model.isOpen) {
+                this._model.hide();
+            }
+            return;
+        }
+
         this._container = <HTMLElement>container;
 
         this._root = document.createElement("div");
